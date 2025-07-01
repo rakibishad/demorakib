@@ -121,7 +121,7 @@ class _AboutUiState extends State<AboutUi> {
                     },
                     child: Text(
                       showAllCourses ? "Show less" : "See all",
-                      style: const TextStyle(color: Colors.deepPurple),
+                      style: const TextStyle(color: MyColor.deepPurple),
                     ),
                   ),
                 ],

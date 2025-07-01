@@ -16,6 +16,7 @@ class MyColor {
   static const yellowColor = Colors.yellow;
   static final yellowWithOpacity = Colors.yellowAccent.withOpacity(0.5);
  static const cyan = Colors.cyan;
+ static const deepPurple = Colors.deepPurple;
   static const Color colorPrimaryDark = Color(0xFF303F9F);
 
   static MaterialColor primaryBlack = const MaterialColor(

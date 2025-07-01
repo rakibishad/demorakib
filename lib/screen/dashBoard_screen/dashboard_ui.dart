@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rakibsk/screen/about_Screen/about_Ui.dart';
 import 'package:rakibsk/screen/helpDesk/helpdesk_Ui.dart';
 import 'package:rakibsk/screen/listScreen/list_ui.dart';
+import '../../extra/colors.dart';
 import '../School/school_ui.dart';
 import '../hosptal_Screen/hosptal_ui.dart';
 import 'dasbord_cubit.dart';
@@ -199,7 +200,7 @@ class _DashboardUiState extends State<DashboardUi> {
 
   ListTile buildDrawerItem(IconData icon, String title, BuildContext context) {
     return ListTile(
-      leading: Icon(icon, color: Colors.deepPurple),
+      leading: Icon(icon, color: MyColor.deepPurple),
       title: Text(
         title,
         style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
