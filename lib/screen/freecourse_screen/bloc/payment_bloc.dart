@@ -3,7 +3,6 @@ import 'payment_event.dart';
 import 'payment_state.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-
 class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
   final void Function(String paymentId) onPaymentSuccess;
   final void Function(String error) onPaymentError;
@@ -25,13 +24,13 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
 
   // ✅ Define the missing _onMakePayment function
   Future<void> _onMakePayment(
-      MakePaymentEvent event,
-      Emitter<PaymentState> emit,
-      ) async {
+    MakePaymentEvent event,
+    Emitter<PaymentState> emit,
+  ) async {
     emit(PaymentLoading());
 
     var options = {
-      'key': 'rzp_test_YourKeyHere', // Replace with your Razorpay test key
+      'key': 'rzp_test_rcXF3LtvLfMONq', // Replace with your Razorpay test key
       'amount': 100, // Amount in paise (₹1.00 = 100)
       'name': event.name,
       'description': 'Test Payment',
@@ -63,5 +62,3 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     return super.close();
   }
 }
-
-
