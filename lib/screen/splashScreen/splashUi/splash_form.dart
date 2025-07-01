@@ -25,7 +25,7 @@ class SplashScreen extends StatelessWidget {
             children: [
               /// 🔹 Background Image
               Image.asset(
-                'assets/images/splacescreen.png',
+                'assets/images/download.png',
                 fit: BoxFit.cover,
               ),
 
@@ -97,7 +97,7 @@ class SplashScreen extends StatelessWidget {
 
                           /// Welcome Text
                           const Text(
-                            "Welcome to RakibSK!",
+                            "Welcome to Developer !",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 28,
