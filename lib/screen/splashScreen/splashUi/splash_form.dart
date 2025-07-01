@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
@@ -24,40 +23,101 @@ class SplashScreen extends StatelessWidget {
           body: Stack(
             fit: StackFit.expand,
             children: [
-              // 🔹 Background Image
+              /// 🔹 Background Image
               Image.asset(
-                'assets/images/hospital.jpg',
+                'assets/images/splacescreen.png',
                 fit: BoxFit.cover,
               ),
 
-              // 🔹 Blur Effect
+              /// 🔹 Gradient & Blur Overlay
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.black.withOpacity(0.4),
+                      Colors.black.withOpacity(0.6),
+                    ],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                  ),
+                ),
+              ),
               BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                filter: ImageFilter.blur(sigmaX: 6.0, sigmaY: 6.0),
                 child: Container(
-                  color: Colors.black.withOpacity(0.3),
+                  color: Colors.black.withOpacity(0.2),
                 ),
               ),
 
-              // 🔹 Center Content with Transform (scale)
+              /// 🔹 Centered Content
               Center(
-                child: Transform.scale(
-                  scale: 1.1,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      CircularProgressIndicator(color: Colors.white),
-                      SizedBox(height: 20),
-                      Text(
-                        "Welcome!",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.5,
-                        ),
+                child: TweenAnimationBuilder<double>(
+                  duration: const Duration(seconds: 2),
+                  tween: Tween(begin: 0.8, end: 1.0),
+                  curve: Curves.easeInOutBack,
+                  builder: (context, scale, child) {
+                    return Transform.scale(
+                      scale: scale,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          /// Logo (Optional)
+                          Container(
+                            height: 100,
+                            width: 100,
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              image: DecorationImage(
+                                image: AssetImage('assets/images/profile.png'), // 🔁 replace if neede
+                                fit: BoxFit.cover,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.white38,
+                                  blurRadius: 10,
+                                  spreadRadius: 2,
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          /// Custom Progress Indicator
+                          const SizedBox(
+                            height: 40,
+                            width: 40,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 4,
+                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          /// Welcome Text
+                          const Text(
+                            "Welcome to RakibSK!",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 28,
+                              fontWeight: FontWeight.w600,
+                              letterSpacing: 1.2,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          const Text(
+                            "Let’s get started...",
+                            style: TextStyle(
+                              color: Colors.white70,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
               ),
             ],
