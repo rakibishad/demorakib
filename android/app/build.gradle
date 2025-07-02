@@ -29,6 +29,14 @@ android {
         versionCode = flutter.versionCode
         versionName = flutter.versionName
     }
+    buildTypes {
+        release {
+            minifyEnabled false // Disable R8 minification
+            shrinkResources false
+
+        }
+    }
+
 
     buildTypes {
         release {

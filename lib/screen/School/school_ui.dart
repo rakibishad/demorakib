@@ -23,7 +23,7 @@ class _SchoolInformationScreenState extends State<SchoolInformationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: MyColor.cyan,
+        backgroundColor: MyColor.deepPurple,
         title: const Text('School Information'),
       ),
       body:SingleChildScrollView( child: Padding(

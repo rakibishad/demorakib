@@ -40,27 +40,27 @@ class _DashboardUiState extends State<DashboardUi> {
         ),
         body: Column(
           children: [
-            const SizedBox(height: 20),
+           // const SizedBox(height: 10),
             BlocBuilder<DashboardCubit, DashboardState>(
               builder: (context, state) {
                 return Text(
                   state.message,
                   style: GoogleFonts.poppins(
-                    fontSize: 22,
+                    fontSize: 2,
                     fontWeight: FontWeight.w500,
                     color: Colors.deepPurple,
                   ),
                 );
               },
             ),
-            const SizedBox(height: 10),
+         //   const SizedBox(height: 10),
             Expanded(
               child: GridView.builder(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.all(10),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
                   childAspectRatio: 3 / 3.5,
                 ),
                 itemCount: dashboardItems.length,

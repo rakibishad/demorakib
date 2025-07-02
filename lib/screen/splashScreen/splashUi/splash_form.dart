@@ -97,7 +97,7 @@ class SplashScreen extends StatelessWidget {
 
                           /// Welcome Text
                           const Text(
-                            "Welcome to Developer !",
+                            "Welcome to Rakib",
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 28,
