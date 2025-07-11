@@ -7,7 +7,8 @@ buildscript {
     }
     dependencies {
         // ✅ Add this Firebase Google Services classpath
-        classpath 'com.google.gms:google-services:4.4.0'
+
+        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 

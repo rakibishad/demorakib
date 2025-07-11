@@ -13,7 +13,7 @@ class RouteHandlers {
 
   static final Handler loginHandler = Handler(
     handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
-      return const LoginScreen(); // LoginScreen should be a widget
+      return LoginScreen(); // LoginScreen should be a widget
     },
   );
 }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 
+import '../../../phoneAuth/loginMobile_ui.dart';
 import '../../../routes/routes_name.dart';
 import '../splashCubit/splash_cubit.dart';
 
@@ -16,7 +17,7 @@ class SplashScreen extends StatelessWidget {
       child: BlocListener<SplashCubit, SplashState>(
         listener: (context, state) {
           if (state is SplashNavigateToHome) {
-            Get.offAllNamed(RoutesName.dashboardUi);
+            Get.offAllNamed(RoutesName.login);
           }
         },
         child: Scaffold(
@@ -25,7 +26,7 @@ class SplashScreen extends StatelessWidget {
             children: [
               /// 🔹 Background Image
               Image.asset(
-                'assets/images/download.png',
+                'assets/images/splace.jpg',
                 fit: BoxFit.cover,
               ),
 
@@ -68,7 +69,7 @@ class SplashScreen extends StatelessWidget {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                image: AssetImage('assets/images/profile.png'), // 🔁 replace if neede
+                                image: AssetImage('assets/images/splace.jpg'), // 🔁 replace if neede
                                 fit: BoxFit.cover,
                               ),
                               boxShadow: [

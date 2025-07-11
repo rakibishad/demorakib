@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rakibsk/extra/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:rakibsk/screen/about_Screen/setting_screen.dart';
+import 'package:rakibsk/screen/about_Screen/webview_screen.dart';
 
 import '../freecourse_screen/freecourseUi.dart';
+import '../home_Screen/home.dart';
+
 
 
 
@@ -24,6 +29,7 @@ class _AboutUiState extends State<AboutUi> {
   bool showAllCourses = false;
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
@@ -39,7 +45,9 @@ class _AboutUiState extends State<AboutUi> {
       ),
       body: SingleChildScrollView(
         child: Column(
+
           children: [
+
             // Search Bar
             Container(
               color: Colors.deepPurple,
@@ -65,6 +73,8 @@ class _AboutUiState extends State<AboutUi> {
                     borderSide: BorderSide.none,
                   ),
                 ),
+
+
               ),
             ),
 
@@ -157,20 +167,116 @@ class _AboutUiState extends State<AboutUi> {
               const SizedBox(height: 20),
             ],
           ],
+
         ),
+
       ),
 
       // Bottom Navigation
       bottomNavigationBar: BottomNavigationBar(
+        currentIndex: 0, // highlight the Courses tab
         selectedItemColor: Colors.deepPurple,
+        onTap: (index) {
+          if (index == 1) {
+            // Navigate to Wishlist WebView
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) =>  WebViewPage()),
+            );
+          } else if (index == 2) {
+            // Navigate to Profile screen if needed
+          }
+          // index 0 is current page, so do nothing
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Courses"),
           BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Wishlist"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
         ],
       ),
+      drawer: Drawer(
+        backgroundColor: Colors.grey[100],
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Colors.deepPurple, Colors.deepPurpleAccent],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CircleAvatar(
+                    radius: 32,
+                    backgroundImage: AssetImage('assets/images/splash.png'),
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    'Welcome, User',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                  Text(
+                    'About Navigation',
+                    style: GoogleFonts.poppins(
+                      color: Colors.white70,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            buildDrawerItem(Icons.offline_bolt, "offline", context),
+            buildDrawerItem(Icons.online_prediction, "Online Shoaping", context),
+            buildDrawerItem(Icons.fullscreen_outlined, "Full Course", context),
+            buildDrawerItem(Icons.logout, "Logout", context),
+          ],
+        ),
+      ),
     );
   }
+  ListTile buildDrawerItem(IconData icon, String title, BuildContext context) {
+    return ListTile(
+      leading: Icon(icon, color: MyColor.deepPurple),
+      title: Text(
+        title,
+        style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+      ),
+      onTap: () {
+        print("Tapped: $title");
+        Navigator.pop(context); // Close drawer first
+
+        if (title == "offline") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const HomeScreen()),
+          );
+        }
+        else if (title == "Online Shoaping") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => const SettingsScreen()),
+          );
+
+
+      } else if (title == "Logout") {
+          Fluttertoast.showToast(msg: "Logged out!");
+          // Navigate to login if needed
+        } else if (title == "Backup") {
+          // Navigate to backup screen if needed
+        } else {
+          Fluttertoast.showToast(msg: "$title selected!");
+        }
+      },
+
+    );
+  }
+
 }
 
 

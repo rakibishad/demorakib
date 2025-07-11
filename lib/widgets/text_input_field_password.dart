@@ -1,60 +1,74 @@
 import 'package:flutter/material.dart';
-import 'package:parivesh/extra/colors.dart';
-import 'package:parivesh/extra/common_style.dart';
 
-class TextInputFieldPassword extends StatelessWidget {
-  final Function(String value) onChanged;
-  final String? Function(String? value) validator;
+
+import '../extra/colors.dart';
+import '../extra/common_style.dart';
+
+import 'package:flutter/material.dart';
+
+class TextInputFields extends StatelessWidget {
+  final TextInputType textInputType;
   final TextInputAction textInputAction;
-  final ValueNotifier<bool> isPasswordVisible = ValueNotifier(true);
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
 
-  TextInputFieldPassword(
-      {super.key,
-      this.textInputAction = TextInputAction.done,
-      required this.validator,
-      required this.onChanged});
+  const TextInputFields({
+    super.key,
+    required this.textInputType,
+    required this.textInputAction,
+    this.validator,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: isPasswordVisible,
-        builder: (BuildContext context, bool counterValue, Widget? child) {
-          return Theme(
-            data: Theme.of(context).copyWith(
-              textSelectionTheme: TextSelectionThemeData(
-                selectionColor: MyColor.lightGray,
-                selectionHandleColor: MyColor.lightGray,
-              ),
-            ),
-            child: TextFormField(
-              obscureText: isPasswordVisible.value,
-              autovalidateMode: AutovalidateMode.disabled,
-              style: textStyleNormal,
-              cursorColor: MyColor.darkGrey,
-              keyboardType: TextInputType.text,
-              textInputAction: textInputAction,
-              validator: validator,
-              onChanged: onChanged,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                alignLabelWithHint: true,
-                suffixIcon: GestureDetector(
-                  child: Icon(
-                    counterValue
-                        ? Icons.visibility_off_outlined
-                        : Icons.visibility_outlined,
-                    color: Colors.grey,
-                  ),
-                  onTap: () => isPasswordVisible.value = !isPasswordVisible.value,
-                ),
-                enabledBorder: outlineInputBorder,
-                focusedBorder: outlineInputBorder,
-                errorBorder: outlineInputBorderRed,
-                focusedErrorBorder: outlineInputBorderRed,
-              ),
-            ),
-          );
-        });
+    return TextFormField(
+      keyboardType: textInputType,
+      textInputAction: textInputAction,
+      decoration: const InputDecoration(
+        labelText: 'Email',
+        prefixIcon: Icon(Icons.email, color: Colors.brown),
+        border: OutlineInputBorder(),
+      ),
+      validator: validator,
+      onChanged: onChanged,
+    );
   }
 }
+
+
+class TextInputFieldPassword extends StatelessWidget {
+  final TextEditingController controller; // ✅ REQUIRED
+  final TextInputAction textInputAction;
+  final String? Function(String?)? validator;
+  final void Function(String)? onChanged;
+  final String labelText;
+  final Icon prefixIcon;
+
+  const TextInputFieldPassword({
+    super.key,
+    required this.controller, // ✅ Add this to constructor
+    required this.textInputAction,
+    this.validator,
+    this.onChanged,
+    required this.labelText,
+    required this.prefixIcon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller, // ✅ Actually used
+      obscureText: true,
+      textInputAction: textInputAction,
+      decoration: InputDecoration(
+        labelText: labelText,
+        prefixIcon: prefixIcon,
+        border: const OutlineInputBorder(),
+      ),
+      validator: validator,
+      onChanged: onChanged,
+    );
+  }
+}
+

@@ -8,4 +8,7 @@ class RoutesName {
   static const String registation = '/registation';
   static const String about = '/about';
   static const String helpdesk = '/helpdesk';
+  static const String mobileauth = '/mobileauth';
+  static const String otpScreen = '/otpScreen';
+  static const String setting = '/setting';
 }
