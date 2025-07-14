@@ -5,11 +5,13 @@ import 'login_state.dart';
 import '../../extra/colors.dart';
 import '../../widgets/text_input_field_password.dart' as pwd;
 import '../../widgets/text_input_fields.dart' as email;
+import '../../widgets/text_input_fields.dart' as mobile;
 import '../dashBoard_screen/dashboard_ui.dart';
 
 class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController(text: "rakibraihan1996@gmail.com");
   final TextEditingController passwordController = TextEditingController(text: "123456");
+  final TextEditingController mobileController = TextEditingController(text: "+8801700000000");
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   LoginScreen({super.key});
@@ -51,7 +53,7 @@ class LoginScreen extends StatelessWidget {
                   children: [
                     Image.asset(
                       'assets/images/login.jpg',
-                      width: 150,
+                      width: 155,
                       height: 150,
                       fit: BoxFit.contain,
                     ),
@@ -68,7 +70,15 @@ class LoginScreen extends StatelessWidget {
                       onChanged: (value) => context.read<LoginCubit>().emailChanged(value),
                     ),
                     const SizedBox(height: 10),
+                    mobile.TextInputFields(
+                   controller: mobileController,
+                      textInputType: TextInputType.phone,
+                      textInputAction: TextInputAction.next,
+                      labelText: "Mobile",
+                      prefixIcon: const Icon(Icons.phone, color: Colors.brown),
 
+                    ),
+                    const SizedBox(height: 10),
                     // Password
                     pwd.TextInputFieldPassword(
                       controller: passwordController,

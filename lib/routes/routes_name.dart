@@ -11,4 +11,9 @@ class RoutesName {
   static const String mobileauth = '/mobileauth';
   static const String otpScreen = '/otpScreen';
   static const String setting = '/setting';
+  static const String livechat = '/livechat';
+  static const String invoice = '/invoice';
+  static const String cityarea = '/cityarea';
+  static const String searchfilter = '/searchfilter';
+
 }

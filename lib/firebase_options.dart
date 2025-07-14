@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'testing-flutter-97d13.firebasestorage.app',
     iosBundleId: 'com.nic.rakibsk',
   );
+
 }

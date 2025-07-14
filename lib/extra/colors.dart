@@ -19,6 +19,7 @@ class MyColor {
  static const deepPurple = Colors.deepPurple;
   static const Color colorPrimaryDark = Color(0xFF303F9F);
 
+
   static MaterialColor primaryBlack = const MaterialColor(
     0xFF000000,
     <int, Color>{

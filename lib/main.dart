@@ -1,4 +1,5 @@
 // 🟩 Core Flutter Packages
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -13,8 +14,14 @@ import 'package:rakibsk/screen/helpDesk/helpdesk_Ui.dart';
 
 
 import 'package:rakibsk/screen/hosptal_Screen/hosptal_ui.dart';
+import 'package:rakibsk/screen/invoiceScreens/api/data.dart';
+import 'package:rakibsk/screen/invoiceScreens/cubits/invoice_cubit.dart';
+import 'package:rakibsk/screen/invoiceScreens/invoice_screen.dart';
 import 'package:rakibsk/screen/listScreen/list_ui.dart';
+import 'package:rakibsk/screen/liveChats/live_chat.dart';
+import 'package:rakibsk/screen/locationScreens/CityAreaSelectionScreen.dart';
 import 'package:rakibsk/screen/loginScreen/login_screen.dart';
+import 'package:rakibsk/screen/searchfilters/search_filter_screen.dart';
 
 import 'package:rakibsk/screen/splashScreen/splashUi/splash_form.dart';
 import 'package:rakibsk/screen/dashBoard_screen/dashboard_ui.dart';
@@ -28,36 +35,49 @@ import 'checkNetwork/network_event.dart';
 
 import 'firebase_options.dart';
 
-
 void main() async {
-  print('🚀 Starting from main_prod.dart');
+  print('🚀 Starting from main.dart');
 
   WidgetsFlutterBinding.ensureInitialized();
 
-  // ✅ SharedPreferences
+  // ✅ Shared Preferences
   final prefs = await SharedPreferences.getInstance();
   final token = prefs.getString('user_token');
   print("✅ Stored token is: $token");
 
-  // ✅ Firebase Initialization with options
+  // ✅ Firebase Initialization
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    debugPrint("✅ Firebase initialized with options");
+    debugPrint("✅ Firebase initialized");
+
+    // ✅ Firebase App Check (Dev Mode)
+    await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.debug,
+      appleProvider: AppleProvider.debug,
+    );
   } catch (e) {
-    debugPrint("❌ Firebase initialization failed: $e");
+    debugPrint("❌ Firebase init failed: $e");
   }
 
   final themeRepository = ThemeRepository(sharedPreferences: prefs);
 
   runApp(
-    BlocProvider(
-      create: (context) => NetworkBloc()..add(ListenConnection()),
+    MultiBlocProvider(
+      providers: [
+        BlocProvider<NetworkBloc>(
+          create: (_) => NetworkBloc()..add(ListenConnection()),
+        ),
+        BlocProvider<InvoiceCubit>(
+          create: (_) => InvoiceCubit(InvoiceRepository()),
+        ),
+      ],
       child: MyApp(themeRepository: themeRepository),
     ),
   );
 }
+
 
 
 
@@ -120,6 +140,21 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: RoutesName.setting, // ✅ THIS IS REQUIRED
           page: () => SettingsScreen(),
+        ),
+        GetPage(
+          name: RoutesName.livechat, // ✅ THIS IS REQUIRED
+          page: () =>MessagingScreen (),
+        ),
+        GetPage(
+          name: RoutesName.invoice, // ✅ THIS IS REQUIRED
+          page: () =>InvoiceScreen (),
+        ),
+        GetPage(
+          name: RoutesName.cityarea, // ✅ THIS IS REQUIRED
+          page: () =>CityAreaSelectionScreen (),
+        ), GetPage(
+          name: RoutesName.searchfilter, // ✅ THIS IS REQUIRED
+          page: () =>SearchFilterScreen (),
         ),
       ],
     );
