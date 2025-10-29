@@ -18,6 +18,7 @@ class SplashScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is SplashNavigateToHome) {
             Get.offAllNamed(RoutesName.login);
+           // Get.offAllNamed(RoutesName.mobileotp);
           }
         },
         child: Scaffold(

@@ -7,15 +7,16 @@ import 'package:rakibsk/screen/helpDesk/helpdesk_Ui.dart';
 import 'package:rakibsk/screen/listScreen/list_ui.dart';
 import 'package:rakibsk/screen/liveChats/live_chat.dart';
 import 'package:rakibsk/screen/locationScreens/CityAreaSelectionScreen.dart';
+import 'package:rakibsk/screen/pdfdownload/pdf_Ui.dart';
 import '../../extra/colors.dart';
 import '../School/school_ui.dart';
-import '../hosptal_Screen/hosptal_ui.dart';
 import '../invoiceScreens/invoice_screen.dart';
 import '../searchfilters/search_filter_screen.dart';
+import '../webView/attendenceScreen.dart';
 import 'dasbord_cubit.dart';
 import 'dashboard_state.dart';
 import 'dashboard_items.dart';
-
+import 'package:rakibsk/screen/pdfdownload/pdf_ui.dart' hide PdfUi;
 class DashboardUi extends StatefulWidget {
   const DashboardUi({super.key});
 
@@ -44,85 +45,88 @@ class _DashboardUiState extends State<DashboardUi> {
           ),
           iconTheme: const IconThemeData(color: Colors.black),
         ),
-        body: Column(
-          children: [
-            const SizedBox(height: 10),
-            BlocBuilder<DashboardCubit, DashboardState>(
-              builder: (context, state) {
-                return Text(
-                  state.message,
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey[600],
-                  ),
-                );
-              },
-            ),
-            const SizedBox(height: 10),
-            Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.all(16),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 3 / 3.5,
-                ),
-                itemCount: dashboardItems.length,
-                itemBuilder: (context, index) {
-                  final item = dashboardItems[index];
-                  return GestureDetector(
-                    onTap: () => _handleNavigation(context, item['title']!),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.15),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 32,
-                            backgroundColor: Colors.grey[200],
-                            child: Padding(
-                              padding: const EdgeInsets.all(6.0),
-                              child: Image.asset(
-                                item['image']!,
-                                height: 36,
-                                width: 36,
-                                fit: BoxFit.contain,
-                                errorBuilder: (context, error, stackTrace) =>
-                                    Icon(item['icon'] as IconData?, size: 30, color: Colors.black87),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            item['title']!,
-                            style: GoogleFonts.poppins(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.black87,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+        body: Container(
+          color: MyColor.white,
+          child: Column(
+            children: [
+              const SizedBox(height: 10),
+              BlocBuilder<DashboardCubit, DashboardState>(
+                builder: (context, state) {
+                  return Text(
+                    state.message,
+                    style: GoogleFonts.poppins(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.grey[600],
                     ),
                   );
                 },
               ),
-            ),
-          ],
+              const SizedBox(height: 10),
+              Expanded(
+                child: GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    mainAxisSpacing: 16,
+                    crossAxisSpacing: 16,
+                    childAspectRatio: 3 / 3.5,
+                  ),
+                  itemCount: dashboardItems.length,
+                  itemBuilder: (context, index) {
+                    final item = dashboardItems[index];
+                    return GestureDetector(
+                      onTap: () => _handleNavigation(context, item['title']!),
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.15),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 32,
+                              backgroundColor: Colors.grey[200],
+                              child: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Image.asset(
+                                  item['image']!,
+                                  height: 36,
+                                  width: 36,
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Icon(item['icon'] as IconData?, size: 30, color: Colors.black87),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Text(
+                              item['title']!,
+                              style: GoogleFonts.poppins(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                                color: Colors.black87,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
         drawer: Drawer(
           backgroundColor: Colors.white,
@@ -178,14 +182,27 @@ class _DashboardUiState extends State<DashboardUi> {
       'School': const SchoolInformationScreen(),
       'Hospital': const UserListScreen(),
       'About': const AboutUi(),
-      'Help Dept': const HelpdeskUi(),
-      'Live Chat': MessagingScreen(),
-      'Invoice Bill': InvoiceScreen(),
-      'city area': CityAreaSelectionScreen(),
-      'Search Filter': SearchFilterScreen(),
+      'Help Desk': const HelpdeskUi(),
+      'Live Chat': const MessagingScreen(),
+      'Invoice Bill': const InvoiceScreen(),
+      'City Area': CityAreaSelectionScreen(),
+      'Search Filter': const SearchFilterScreen(),
+      'WebView': const WebViewScreen(),
+      'PDF Download': const PdfUi(),
     };
 
     if (routeMap.containsKey(title)) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (_) => routeMap[title]!),
+      );
+    } else {
+      context.read<DashboardCubit>().updateMessage('$title tapped!');
+    }
+
+
+
+  if (routeMap.containsKey(title)) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (_) => routeMap[title]!),
@@ -207,9 +224,18 @@ class _DashboardUiState extends State<DashboardUi> {
         ),
       ),
       onTap: () {
+        Navigator.pop(context); // Close drawer first
         context.read<DashboardCubit>().updateMessage('$title selected!');
-        Navigator.pop(context);
+
+        if (title == "Whatsapp Group") {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => MessagingScreen()),
+          );
+        }
+        // You can add other conditions for other drawer items too if needed
       },
     );
   }
+
 }

@@ -9,10 +9,8 @@ import 'package:rakibsk/phoneAuth/loginMobile_ui.dart';
 import 'package:rakibsk/phoneAuth/otpverifaction.dart';
 import 'package:rakibsk/screen/about_Screen/about_Ui.dart';
 import 'package:rakibsk/screen/about_Screen/setting_screen.dart';
+import 'package:rakibsk/screen/dashBoard_screen/dasbord_cubit.dart';
 import 'package:rakibsk/screen/helpDesk/helpdesk_Ui.dart';
-
-
-
 import 'package:rakibsk/screen/hosptal_Screen/hosptal_ui.dart';
 import 'package:rakibsk/screen/invoiceScreens/api/data.dart';
 import 'package:rakibsk/screen/invoiceScreens/cubits/invoice_cubit.dart';
@@ -21,11 +19,13 @@ import 'package:rakibsk/screen/listScreen/list_ui.dart';
 import 'package:rakibsk/screen/liveChats/live_chat.dart';
 import 'package:rakibsk/screen/locationScreens/CityAreaSelectionScreen.dart';
 import 'package:rakibsk/screen/loginScreen/login_screen.dart';
+import 'package:rakibsk/screen/pdfdownload/pdf_Ui.dart';
 import 'package:rakibsk/screen/searchfilters/search_filter_screen.dart';
-
 import 'package:rakibsk/screen/splashScreen/splashUi/splash_form.dart';
 import 'package:rakibsk/screen/dashBoard_screen/dashboard_ui.dart';
+import 'package:rakibsk/screen/webView/attendenceScreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'PhoneAuthScreen.dart';
 import 'appTheme/theme_Prefrences.dart';
 import 'routes/routes_name.dart';
 
@@ -50,6 +50,9 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.playIntegrity, // Use debug for testing
+    );
     debugPrint("✅ Firebase initialized");
 
     // ✅ Firebase App Check (Dev Mode)
@@ -71,6 +74,9 @@ void main() async {
         ),
         BlocProvider<InvoiceCubit>(
           create: (_) => InvoiceCubit(InvoiceRepository()),
+        ),
+        BlocProvider<DashboardCubit>( // 🔥 Add this line
+          create: (_) => DashboardCubit(),
         ),
       ],
       child: MyApp(themeRepository: themeRepository),
@@ -155,6 +161,17 @@ class MyApp extends StatelessWidget {
         ), GetPage(
           name: RoutesName.searchfilter, // ✅ THIS IS REQUIRED
           page: () =>SearchFilterScreen (),
+        ),
+        GetPage(
+          name: RoutesName.mobileotp, // ✅ THIS IS REQUIRED
+          page: () =>PhoneAuthScreen (),
+        ), GetPage(
+          name: RoutesName.webviewattendence, // ✅ THIS IS REQUIRED
+          page: () =>WebViewScreen (),
+        ),
+        GetPage(
+          name: RoutesName.Pdfdownload, // ✅ THIS IS REQUIRED
+          page: () =>PdfUi (),
         ),
       ],
     );

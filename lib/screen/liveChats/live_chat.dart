@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MessagingScreen extends StatefulWidget {
+  const MessagingScreen({super.key});
+
   @override
   _MessagingScreenState createState() => _MessagingScreenState();
 }

@@ -31,4 +31,8 @@ final List<Map<String, String>> dashboardItems = [
     'title': 'Search Filter',
     'image': 'assets/images/sk.png',
   },
+  {
+    'title': 'PDF Download',
+    'image': 'assets/images/sk.png',
+  },
 ];
